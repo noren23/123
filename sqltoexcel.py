@@ -5,11 +5,11 @@ import jsonpath
 import http.client
 
 
-
 class Card:
     def __init__(self, f, n):
         self.flower = f
         self.num = n
+
 
 global poker_1
 global poker_2
@@ -34,6 +34,7 @@ global hua
 global number
 global score
 global cnt
+
 
 def init_var():
     global poker_1
@@ -83,14 +84,17 @@ def init_var():
     score = 0.0
     cnt = 0
 
+
 global e1, e2, e3
 global a1, a2, a3
+
 
 def init_cnt():
     for i in range(0, 6):
         hua[i] = 0
     for i in range(0, 20):
         number[i] = 0
+
 
 def bubble_sort(nums, a, b):
     for i in range(b - a):
@@ -99,6 +103,7 @@ def bubble_sort(nums, a, b):
                 nums[a + j], nums[a + j + 1] = nums[a + j + 1], nums[a + j]
     return nums
 
+
 def ShunZi3(start):
     for i in range(start, start + 3):
         if number[i] < 1:
@@ -106,12 +111,14 @@ def ShunZi3(start):
     else:
         return 1
 
+
 def ShunZi5(start):
     for i in range(start, start + 5):
         if number[i] < 1:
             return 0
     else:
         return 1
+
 
 def first():
     global score
@@ -158,6 +165,7 @@ def first():
                 (ans_3[3].num - 1) * 100 + (ans_3[2].num - 1) * 10 + (ans_3[1].num - 1))
     score += k
     return k  # 散牌
+
 
 def second():
     global score
@@ -245,6 +253,7 @@ def second():
     score += k
     return k
 
+
 def third():
     global score
     init_cnt()
@@ -331,6 +340,7 @@ def third():
     score += k
     return k
 
+
 def StandOf():
     for i in range(1, 4):
         end_3[i] = ans_3[i]
@@ -339,6 +349,7 @@ def StandOf():
     for i in range(1, 6):
         end_1[i] = ans_1[i]
 
+
 def TempoF():
     for i in range(1, 4):
         ans_3[i] = temp_3[i]
@@ -346,6 +357,7 @@ def TempoF():
         ans_2[i] = temp_2[i]
     for i in range(1, 6):
         ans_1[i] = temp_1[i]
+
 
 def Print():
     for i in range(1, 4):
@@ -364,6 +376,7 @@ def Print():
         else:
             print(ans_1[i].num, end=" ")
 
+
 def contrast_ans():
     global score, end_ans, cnt
     global e1, e2, e3
@@ -380,11 +393,12 @@ def contrast_ans():
         score = 0
     if score > end_ans:
         end_ans = score
-        a1 = e1;
-        a2 = e2;
-        a3 = e3;
+        a1 = e1
+        a2 = e2
+        a3 = e3
         StandOf()
     cnt += 1
+
 
 def init_2():
     index = 0
@@ -392,6 +406,7 @@ def init_2():
         if s2[i] == 0:
             index = index + 1
             temp_3[index] = poker_2[i]
+
 
 def dfs_2(d, index_2):
     for i in range(d, 9):
@@ -404,12 +419,14 @@ def dfs_2(d, index_2):
             dfs_2(i + 1, index_2 + 1)
         s2[i] = 0
 
+
 def init_1():
     index = 0
     for i in range(1, 14):
         if s1[i] == 0:
             index = index+1
             poker_2[index] = poker_1[i]
+
 
 def dfs_1(d, index_1):
     for i in range(d, 14):
@@ -422,6 +439,7 @@ def dfs_1(d, index_1):
             dfs_1(i + 1, index_1 + 1)
         s1[i] = 0
 
+
 def number_to_hua(x):
     if x == 1:
         return '&'
@@ -431,6 +449,7 @@ def number_to_hua(x):
         return '#'
     if x == 4:
         return '*'
+
 
 def hua_to_number(x):
     if x == '&':
@@ -442,12 +461,10 @@ def hua_to_number(x):
     if x == '*':
         return 4
 
+
 def main():
     tic = time.time()
     init_var()
-    un = "yu0000"
-    pw = "abcdefg"
-
     url = "https://api.shisanshui.rtxux.xyz/auth/register"
 
     payload = "{\"username\":\"un\",\"password\":\"pw\"}"
@@ -475,7 +492,6 @@ def main():
     tkk = qq[0]
     qq = jsonpath.jsonpath(html, '$..data.user_id')
     pl_id = qq[0]
-
 
     url = "https://api.shisanshui.rtxux.xyz/game/open"
     headers = {'x-auth-token': tkk}
@@ -566,16 +582,16 @@ def main():
         elif tk[eachline+1] == 'A':
             px = 14
 
-        if tk[eachline] == '&' :
-            poker_1[i] = Card(1,px)
+        if tk[eachline] == '&':
+            poker_1[i] = Card(1, px)
             i = i + 1
-        elif tk[eachline] =='$':
+        elif tk[eachline] == '$':
             poker_1[i] = Card(2, px)
             i = i + 1
-        elif tk[eachline] =='#':
+        elif tk[eachline] == '#':
             poker_1[i] = Card(3, px)
             i = i + 1
-        elif tk[eachline] =='*':
+        elif tk[eachline] == '*':
             poker_1[i] = Card(4, px)
             i = i + 1
         else:
@@ -702,7 +718,7 @@ def main():
     # print(hou)
 
     url = "https://api.shisanshui.rtxux.xyz/game/submit"
-    payload = "{\"id\":" + idd + ",\"card\":[\"" + qian +"\",\""+ zhong +"\",\""+ hou +"\"]}"
+    payload = "{\"id\":" + idd + ",\"card\":[\"" + qian + "\",\"" + zhong + "\",\"" + hou + "\"]}"
     print(payload)
     headers = {
         'content-type': "application/json",
@@ -729,7 +745,6 @@ def main():
     # response = requests.request("GET", url)
     # print(response.text)
 
+
 if __name__ == '__main__':
-    for i in range(0,20):
-        main()
-    # main()
+    main()
